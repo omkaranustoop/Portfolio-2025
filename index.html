@@ -1,0 +1,664 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Name - Portfolio</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --mint: #7FFFD4;
+            --blue: #4A90E2;
+            --dark-blue: #357ABD;
+            --white: #FFFFFF;
+            --off-white: #F8F9FA;
+            --text-dark: #2C3E50;
+            --text-light: #6C757D;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+            background: var(--white);
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        /* Header/About Section */
+        .about-section {
+            text-align: center;
+            padding: 60px 0;
+            border-bottom: 3px solid var(--mint);
+            margin-bottom: 50px;
+        }
+
+        .photo-placeholder {
+            width: 160px;
+            height: 160px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--mint) 0%, var(--blue) 100%);
+            margin: 0 auto 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 48px;
+            color: var(--white);
+            font-weight: 600;
+            box-shadow: 0 8px 24px rgba(74, 144, 226, 0.2);
+        }
+
+        h1 {
+            font-size: 2.8em;
+            margin-bottom: 10px;
+            color: var(--text-dark);
+            font-weight: 700;
+        }
+
+        .tagline {
+            font-size: 1.3em;
+            color: var(--blue);
+            margin-bottom: 25px;
+            font-weight: 500;
+        }
+
+        .bio {
+            max-width: 700px;
+            margin: 0 auto;
+            font-size: 1.1em;
+            color: var(--text-light);
+            line-height: 1.8;
+        }
+
+        /* Social Links */
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin: 40px 0;
+            flex-wrap: wrap;
+        }
+
+        .social-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 24px;
+            background: var(--white);
+            border: 2px solid var(--mint);
+            border-radius: 30px;
+            text-decoration: none;
+            color: var(--text-dark);
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .social-link:hover {
+            background: var(--mint);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(127, 255, 212, 0.4);
+        }
+
+        /* Tabs Section */
+        .tabs-section {
+            margin: 60px 0;
+        }
+
+        .tabs {
+            display: flex;
+            gap: 10px;
+            border-bottom: 3px solid var(--off-white);
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        .tab {
+            padding: 15px 30px;
+            background: transparent;
+            border: none;
+            font-size: 1.1em;
+            font-weight: 600;
+            color: var(--text-light);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border-bottom: 3px solid transparent;
+            margin-bottom: -3px;
+        }
+
+        .tab:hover {
+            color: var(--blue);
+        }
+
+        .tab.active {
+            color: var(--blue);
+            border-bottom-color: var(--blue);
+        }
+
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .content-card {
+            background: var(--off-white);
+            padding: 30px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            border-left: 4px solid var(--mint);
+            transition: all 0.3s ease;
+            display: flex;
+            gap: 20px;
+            align-items: start;
+        }
+
+        .content-card:hover {
+            box-shadow: 0 6px 20px rgba(74, 144, 226, 0.1);
+            transform: translateX(5px);
+        }
+
+        .company-logo {
+            flex-shrink: 0;
+            width: 60px;
+            height: 60px;
+            border-radius: 8px;
+            object-fit: contain;
+            background: var(--white);
+            padding: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .content-text {
+            flex: 1;
+        }
+
+        .content-card h3 {
+            color: var(--blue);
+            margin-bottom: 8px;
+            font-size: 1.4em;
+        }
+
+        .content-card .subtitle {
+            color: var(--text-light);
+            font-size: 0.95em;
+            margin-bottom: 15px;
+        }
+
+        .content-card p {
+            color: var(--text-dark);
+            line-height: 1.7;
+        }
+
+        .travel-card {
+            cursor: pointer;
+        }
+
+        .travel-card:hover h3::after {
+            content: ' Click to view photos';
+            font-size: 0.7em;
+            color: var(--mint);
+            font-weight: normal;
+        }
+
+        .clickable-card {
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .clickable-card:hover {
+            border-left-color: var(--blue);
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            animation: fadeIn 0.3s ease;
+        }
+
+        .modal.active {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-content {
+            background: var(--white);
+            padding: 40px;
+            border-radius: 16px;
+            max-width: 800px;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+            animation: slideUp 0.3s ease;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 2em;
+            color: var(--text-light);
+            cursor: pointer;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+
+        .modal-close:hover {
+            background: var(--off-white);
+            color: var(--blue);
+        }
+
+        .modal-content h2 {
+            color: var(--blue);
+            margin-bottom: 10px;
+            font-size: 2em;
+        }
+
+        .modal-content .modal-subtitle {
+            color: var(--text-light);
+            margin-bottom: 20px;
+            font-size: 1.1em;
+        }
+
+        .modal-content .modal-description {
+            color: var(--text-dark);
+            line-height: 1.8;
+            margin-bottom: 30px;
+        }
+
+        .photo-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .photo-gallery img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 8px;
+            transition: transform 0.3s ease;
+            cursor: pointer;
+        }
+
+        .photo-gallery img:hover {
+            transform: scale(1.05);
+        }
+
+        .no-photos {
+            text-align: center;
+            padding: 40px;
+            color: var(--text-light);
+            font-style: italic;
+        }
+
+        /* Contact Section */
+        .contact-section {
+            margin-top: 80px;
+            padding: 50px 0;
+            text-align: center;
+            border-top: 3px solid var(--mint);
+        }
+
+        .contact-section h2 {
+            font-size: 2em;
+            margin-bottom: 30px;
+            color: var(--text-dark);
+        }
+
+        .contact-info {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            flex-wrap: wrap;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.1em;
+            color: var(--text-dark);
+        }
+
+        .contact-item a {
+            color: var(--blue);
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+
+        .contact-item a:hover {
+            color: var(--dark-blue);
+        }
+
+        .icon {
+            font-size: 1.3em;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2em;
+            }
+
+            .tagline {
+                font-size: 1.1em;
+            }
+
+            .tabs {
+                flex-direction: column;
+            }
+
+            .tab {
+                width: 100%;
+                text-align: left;
+            }
+
+            .contact-info {
+                flex-direction: column;
+                gap: 20px;
+            }
+
+            .content-card {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+
+            .company-logo {
+                margin-bottom: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- About Section -->
+        <section class="about-section">
+            <div class="photo-placeholder">YN</div>
+            <h1>Your Name</h1>
+            <p class="tagline">Developer • Traveler • Content Creator</p>
+            <p class="bio">
+                Welcome to my corner of the internet! I'm passionate about building great software, exploring new places, and sharing stories. 
+                This is more than just a resume—it's a glimpse into who I am, what I do, and what inspires me.
+            </p>
+
+            <!-- Social Links -->
+            <div class="social-links">
+                <a href="https://linkedin.com/in/yourprofile" class="social-link" target="_blank">
+                    <span class="icon">💼</span> LinkedIn
+                </a>
+                <a href="https://github.com/yourprofile" class="social-link" target="_blank">
+                    <span class="icon">💻</span> GitHub
+                </a>
+                <a href="https://instagram.com/yourprofile" class="social-link" target="_blank">
+                    <span class="icon">📸</span> Instagram
+                </a>
+                <a href="https://youtube.com/@yourchannel" class="social-link" target="_blank">
+                    <span class="icon">🎥</span> YouTube
+                </a>
+            </div>
+        </section>
+
+        <!-- Tabs Section -->
+        <section class="tabs-section">
+            <div class="tabs">
+                <button class="tab active" onclick="switchTab(event, 'professional')">Professional Experience</button>
+                <button class="tab" onclick="switchTab(event, 'education')">Education</button>
+                <button class="tab" onclick="switchTab(event, 'travel')">Travel</button>
+                <button class="tab" onclick="switchTab(event, 'content')">Content Making</button>
+            </div>
+
+            <!-- Professional Experience Tab -->
+            <div id="professional" class="tab-content active">
+                <div class="content-card">
+                    <img src="https://via.placeholder.com/60x60/4A90E2/FFFFFF?text=TC" alt="Tech Company" class="company-logo">
+                    <div class="content-text">
+                        <h3>Senior Software Engineer</h3>
+                        <p class="subtitle">Tech Company • 2022 - Present</p>
+                        <p>Leading development of scalable web applications using modern technologies. Mentoring junior developers and driving architectural decisions for critical systems.</p>
+                    </div>
+                </div>
+                <div class="content-card">
+                    <img src="https://via.placeholder.com/60x60/7FFFD4/2C3E50?text=SI" alt="Startup Inc" class="company-logo">
+                    <div class="content-text">
+                        <h3>Software Developer</h3>
+                        <p class="subtitle">Startup Inc • 2020 - 2022</p>
+                        <p>Built full-stack applications from concept to deployment. Collaborated with cross-functional teams to deliver high-quality products on tight deadlines.</p>
+                    </div>
+                </div>
+                <div class="content-card">
+                    <img src="https://via.placeholder.com/60x60/357ABD/FFFFFF?text=DA" alt="Digital Agency" class="company-logo">
+                    <div class="content-text">
+                        <h3>Junior Developer</h3>
+                        <p class="subtitle">Digital Agency • 2018 - 2020</p>
+                        <p>Developed responsive websites and web applications. Gained hands-on experience with modern JavaScript frameworks and agile methodologies.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Travel Tab -->
+            <div id="travel" class="tab-content">
+                <div class="content-card travel-card" onclick="openTravelModal('asia')">
+                    <div class="content-text">
+                        <h3>Southeast Asia Adventure 🔍</h3>
+                        <p class="subtitle">Thailand, Vietnam, Cambodia • 2024</p>
+                        <p>Six weeks exploring ancient temples, bustling markets, and pristine beaches. Documented the journey through photography and video content.</p>
+                    </div>
+                </div>
+                <div class="content-card travel-card" onclick="openTravelModal('europe')">
+                    <div class="content-text">
+                        <h3>European Road Trip 🔍</h3>
+                        <p class="subtitle">France, Italy, Switzerland • 2023</p>
+                        <p>Epic road trip through the Alps and Mediterranean coast. Immersed in local cultures, cuisines, and breathtaking landscapes.</p>
+                    </div>
+                </div>
+                <div class="content-card travel-card" onclick="openTravelModal('nepal')">
+                    <div class="content-text">
+                        <h3>Mountain Trekking in Nepal 🔍</h3>
+                        <p class="subtitle">Everest Base Camp • 2022</p>
+                        <p>Life-changing trek to Everest Base Camp. Experienced the warmth of Sherpa hospitality and the raw beauty of the Himalayas.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Content Making Tab -->
+            <div id="content" class="tab-content">
+                <a href="https://youtube.com/@yourchannel" target="_blank" class="content-card clickable-card">
+                    <div class="content-text">
+                        <h3>YouTube Channel 🔗</h3>
+                        <p class="subtitle">Tech & Travel Vlogs • 15K Subscribers</p>
+                        <p>Creating content about software development, productivity tips, and travel adventures. Weekly uploads sharing experiences and insights with a growing community.</p>
+                    </div>
+                </a>
+                <a href="https://medium.com/@yourprofile" target="_blank" class="content-card clickable-card">
+                    <div class="content-text">
+                        <h3>Tech Blog 🔗</h3>
+                        <p class="subtitle">Medium & Personal Blog • 2021 - Present</p>
+                        <p>Writing in-depth tutorials and articles about web development, coding best practices, and career advice. Featured in several tech publications.</p>
+                    </div>
+                </a>
+                <a href="https://www.amazon.com/kindle-dbs/entity/author/YOUR-AUTHOR-ID" target="_blank" class="content-card clickable-card">
+                    <div class="content-text">
+                        <h3>Published Books 🔗</h3>
+                        <p class="subtitle">Amazon KDP • 2020 - Present</p>
+                        <p>Author of books on technology, travel guides, and personal development. Available on Amazon Kindle and paperback formats.</p>
+                    </div>
+                </a>
+                <a href="https://instagram.com/yourprofile" target="_blank" class="content-card clickable-card">
+                    <div class="content-text">
+                        <h3>Photography Portfolio 🔗</h3>
+                        <p class="subtitle">Instagram & Personal Site • 2019 - Present</p>
+                        <p>Curating a visual diary of travels and everyday moments. Specializing in landscape and street photography with a minimalist aesthetic.</p>
+                    </div>
+                </a>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section class="contact-section">
+            <h2>Let's Connect</h2>
+            <div class="contact-info">
+                <div class="contact-item">
+                    <span class="icon">📧</span>
+                    <a href="mailto:your.email@example.com">your.email@example.com</a>
+                </div>
+                <div class="contact-item">
+                    <span class="icon">📱</span>
+                    <a href="tel:+1234567890">+1 (234) 567-890</a>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Travel Modal -->
+    <div id="travelModal" class="modal">
+        <div class="modal-content">
+            <span class="modal-close" onclick="closeTravelModal()">&times;</span>
+            <h2 id="modalTitle"></h2>
+            <p class="modal-subtitle" id="modalSubtitle"></p>
+            <p class="modal-description" id="modalDescription"></p>
+            <div class="photo-gallery" id="modalPhotos"></div>
+        </div>
+    </div>
+
+    <script>
+        function switchTab(event, tabName) {
+            const contents = document.querySelectorAll('.tab-content');
+            contents.forEach(content => content.classList.remove('active'));
+
+            const tabs = document.querySelectorAll('.tab');
+            tabs.forEach(tab => tab.classList.remove('active'));
+
+            document.getElementById(tabName).classList.add('active');
+            event.currentTarget.classList.add('active');
+        }
+
+        // Travel data with photos
+        const travelData = {
+            asia: {
+                title: 'Southeast Asia Adventure',
+                subtitle: 'Thailand, Vietnam, Cambodia • 2024',
+                description: 'Six weeks exploring ancient temples, bustling markets, and pristine beaches. This journey was filled with incredible experiences - from watching sunrise at Angkor Wat to cruising through Ha Long Bay. The food, the people, and the landscapes left an indelible mark on my soul.',
+                photos: [
+                    'https://via.placeholder.com/300x200/7FFFD4/2C3E50?text=Temple',
+                    'https://via.placeholder.com/300x200/4A90E2/FFFFFF?text=Beach',
+                    'https://via.placeholder.com/300x200/7FFFD4/2C3E50?text=Market',
+                    'https://via.placeholder.com/300x200/4A90E2/FFFFFF?text=Sunset'
+                ]
+            },
+            europe: {
+                title: 'European Road Trip',
+                subtitle: 'France, Italy, Switzerland • 2023',
+                description: 'An epic road trip through some of Europe\'s most stunning landscapes. From the lavender fields of Provence to the dramatic peaks of the Swiss Alps, every turn revealed a new masterpiece. The journey was as memorable as the destinations.',
+                photos: [
+                    'https://via.placeholder.com/300x200/4A90E2/FFFFFF?text=Alps',
+                    'https://via.placeholder.com/300x200/7FFFD4/2C3E50?text=Village',
+                    'https://via.placeholder.com/300x200/4A90E2/FFFFFF?text=Coast'
+                ]
+            },
+            nepal: {
+                title: 'Mountain Trekking in Nepal',
+                subtitle: 'Everest Base Camp • 2022',
+                description: 'The trek to Everest Base Camp was a life-changing experience. Each day brought new challenges and rewards - thin air, stunning vistas, and the warmth of Sherpa hospitality. Standing at base camp, surrounded by the highest peaks on Earth, was a moment of pure awe.',
+                photos: [] // No photos for this one as an example
+            }
+        };
+
+        function openTravelModal(destination) {
+            const data = travelData[destination];
+            const modal = document.getElementById('travelModal');
+            
+            document.getElementById('modalTitle').textContent = data.title;
+            document.getElementById('modalSubtitle').textContent = data.subtitle;
+            document.getElementById('modalDescription').textContent = data.description;
+            
+            const photosContainer = document.getElementById('modalPhotos');
+            photosContainer.innerHTML = '';
+            
+            if (data.photos.length > 0) {
+                data.photos.forEach(photo => {
+                    const img = document.createElement('img');
+                    img.src = photo;
+                    img.alt = data.title;
+                    photosContainer.appendChild(img);
+                });
+            } else {
+                photosContainer.innerHTML = '<p class="no-photos">Photos coming soon...</p>';
+            }
+            
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeTravelModal() {
+            const modal = document.getElementById('travelModal');
+            modal.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        // Close modal when clicking outside
+        window.onclick = function(event) {
+            const modal = document.getElementById('travelModal');
+            if (event.target === modal) {
+                closeTravelModal();
+            }
+        }
+
+        // Close modal with Escape key
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                closeTravelModal();
+            }
+        });
+    </script>
+</body>
+</html>
